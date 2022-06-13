@@ -1,5 +1,6 @@
 package ru.geekbrains.materialdesign.view.settings
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +23,8 @@ import ru.geekbrains.materialdesign.utills.Parameters
 import ru.geekbrains.materialdesign.view.MainActivity
 import ru.geekbrains.materialdesign.viewmodel.AppState
 import ru.geekbrains.materialdesign.viewmodel.PictureOfTheDayViewModel
+
+const val THEME = "THEME"
 
 class SettingsFragment : Fragment() {
 
@@ -50,14 +53,26 @@ class SettingsFragment : Fragment() {
             chipRedTheme.setOnClickListener {
                 Parameters.getInstance().theme = R.style.MyRedTheme
                 requireActivity().recreate()
+                saveTheme(R.style.MyRedTheme)
             }
             chipGreenTheme.setOnClickListener {
                 Parameters.getInstance().theme = R.style.MyGreenTheme
                 requireActivity().recreate()
+                saveTheme(R.style.MyGreenTheme)
             }
             chipBlueTheme.setOnClickListener {
                 Parameters.getInstance().theme = R.style.MyBlueTheme
                 requireActivity().recreate()
+                saveTheme(R.style.MyBlueTheme)
+            }
+        }
+    }
+
+    private fun saveTheme(theme: Int) {
+        activity?.let {
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                putInt(THEME, theme)
+                apply()
             }
         }
     }
