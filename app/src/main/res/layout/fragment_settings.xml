@@ -13,19 +13,28 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip1"
-            android:tag="chip1"
+            android:id="@+id/chip_red_theme"
+            android:tag="chip_red_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/today"
+            android:text="@string/chip_red_theme"
             />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip2"
-            android:tag="chip2"
+            android:id="@+id/chip_green_theme"
+            android:tag="chip_green_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yesterday"
+            android:text="@string/chip_green_theme"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_blue_theme"
+            android:tag="chip_green_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_blue_theme"
+            android:checked="true"
             />
 
     </com.google.android.material.chip.ChipGroup>

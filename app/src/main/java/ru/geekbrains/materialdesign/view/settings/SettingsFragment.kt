@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.FragmentPictureOfTheDayBinding
 import ru.geekbrains.materialdesign.databinding.FragmentSettingsBinding
+import ru.geekbrains.materialdesign.utills.Parameters
 import ru.geekbrains.materialdesign.view.MainActivity
 import ru.geekbrains.materialdesign.viewmodel.AppState
 import ru.geekbrains.materialdesign.viewmodel.PictureOfTheDayViewModel
@@ -33,6 +34,32 @@ class SettingsFragment : Fragment() {
     ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+
+            when(Parameters.getInstance().theme) {
+                R.style.MyRedTheme -> chipRedTheme.isChecked = true
+                R.style.MyGreenTheme -> chipGreenTheme.isChecked = true
+                R.style.MyBlueTheme -> chipBlueTheme.isChecked = true
+            }
+
+            chipRedTheme.setOnClickListener {
+                Parameters.getInstance().theme = R.style.MyRedTheme
+                requireActivity().recreate()
+            }
+            chipGreenTheme.setOnClickListener {
+                Parameters.getInstance().theme = R.style.MyGreenTheme
+                requireActivity().recreate()
+            }
+            chipBlueTheme.setOnClickListener {
+                Parameters.getInstance().theme = R.style.MyBlueTheme
+                requireActivity().recreate()
+            }
+        }
     }
 
     override fun onDestroy() {

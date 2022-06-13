@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#FF0000</item>
+    </style>
+    <style name="MyBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="android:backgroundTint">?superColor</item>
+    </style>
+    <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+
+    </style>
+</resources>

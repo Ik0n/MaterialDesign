@@ -11,4 +11,7 @@
     <string name="today">today</string>
     <string name="yesterday">yesterday</string>
     <string name="day_before_yesterday">day before yesterday</string>
+    <string name="chip_red_theme">Red Theme</string>
+    <string name="chip_green_theme">Green Theme</string>
+    <string name="chip_blue_theme">Blue Theme</string>
 </resources>
