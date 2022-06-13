@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ import ru.geekbrains.materialdesign.viewmodel.AppState
 import ru.geekbrains.materialdesign.viewmodel.PictureOfTheDayViewModel
 
 const val THEME = "THEME"
+const val MODE = "MODE"
 
 class SettingsFragment : Fragment() {
 
@@ -50,6 +52,11 @@ class SettingsFragment : Fragment() {
                 R.style.MyBlueTheme -> chipBlueTheme.isChecked = true
             }
 
+            when(Parameters.getInstance().mode) {
+                AppCompatDelegate.MODE_NIGHT_NO -> chipLightMode.isChecked = true
+                AppCompatDelegate.MODE_NIGHT_YES -> chipDarkMode.isChecked = true
+            }
+
             chipRedTheme.setOnClickListener {
                 Parameters.getInstance().theme = R.style.MyRedTheme
                 requireActivity().recreate()
@@ -65,6 +72,16 @@ class SettingsFragment : Fragment() {
                 requireActivity().recreate()
                 saveTheme(R.style.MyBlueTheme)
             }
+            chipLightMode.setOnClickListener {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Parameters.getInstance().mode = AppCompatDelegate.MODE_NIGHT_NO
+                saveMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            chipDarkMode.setOnClickListener {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                Parameters.getInstance().mode = Parameters.getInstance().mode
+                saveMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
         }
     }
 
@@ -72,6 +89,15 @@ class SettingsFragment : Fragment() {
         activity?.let {
             with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
                 putInt(THEME, theme)
+                apply()
+            }
+        }
+    }
+
+    private fun saveMode(mode: Int) {
+        activity?.let {
+            with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                putInt(MODE, mode)
                 apply()
             }
         }

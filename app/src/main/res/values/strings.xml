@@ -14,4 +14,6 @@
     <string name="chip_red_theme">Red Theme</string>
     <string name="chip_green_theme">Green Theme</string>
     <string name="chip_blue_theme">Blue Theme</string>
+    <string name="chip_dark_mode">Dark mode</string>
+    <string name="chip_light_mode">Light mode</string>
 </resources>
