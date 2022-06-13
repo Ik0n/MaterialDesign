@@ -21,6 +21,7 @@
         <item name="bottomAppBarStyle">@style/MyBottomAppBarStyle</item>
         <item name="chipStyle">@style/MyChipStyle</item>
         <item name="textAppearanceBody2">@style/MyTextAppearance</item>
+        <item name="shapeAppearanceSmallComponent">@style/MyShapeAppearanceSmallComponent</item>
     </style>
 
 </resources>

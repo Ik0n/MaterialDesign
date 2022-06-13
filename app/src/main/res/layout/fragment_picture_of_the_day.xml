@@ -13,13 +13,16 @@
         android:orientation="vertical">
 
         <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="0dp"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1"
                 android:tag="chip1"
+                style="@style/StartChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/today"
@@ -29,6 +32,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2"
                 android:tag="chip2"
+                style="@style/MiddleChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yesterday"
@@ -37,6 +41,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip3"
                 android:tag="chip3"
+                style="@style/EndChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/day_before_yesterday"
