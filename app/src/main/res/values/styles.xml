@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MyInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">#FF0000</item>
     </style>
+
     <style name="MyBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="android:backgroundTint">?superColor</item>
     </style>
+
     <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
 
+    </style>
+
+    <style name="MyTextAppearance" parent="TextAppearance.AppCompat.Body2">
+        <item name="fontFamily">@font/wildwood</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:letterSpacing">0.0118571429</item>
     </style>
 </resources>

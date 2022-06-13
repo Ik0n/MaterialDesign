@@ -20,6 +20,7 @@
         <item name="textInputStyle">@style/MyInputStyle</item>
         <item name="bottomAppBarStyle">@style/MyBottomAppBarStyle</item>
         <item name="chipStyle">@style/MyChipStyle</item>
+        <item name="textAppearanceBody2">@style/MyTextAppearance</item>
     </style>
 
     <style name="MyRedTheme" parent="MyBaseTheme">
