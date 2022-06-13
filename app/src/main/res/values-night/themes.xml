@@ -1,21 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MaterialDesign" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:navigationBarColor">@color/red_500</item>
-        <item name="colorPrimary">@color/red_600</item>
+        <item name="android:navigationBarColor">?superColor</item>
+        <item name="colorPrimary">?superColor</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/red_100</item>
-        <item name="colorOnPrimaryContainer">@color/red_900</item>
-        <item name="colorPrimaryInverse">@color/red_200</item>
-        <item name="colorSecondary">@color/red_600</item>
+        <item name="colorPrimaryContainer">?superColor</item>
+        <item name="colorOnPrimaryContainer">?superColor</item>
+        <item name="colorPrimaryInverse">?superColor</item>
+        <item name="colorSecondary">?superColor</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">@color/red_100</item>
-        <item name="colorOnSecondaryContainer">@color/red_900</item>
+        <item name="colorSecondaryContainer">?superColor</item>
+        <item name="colorOnSecondaryContainer">?superColor</item>
         <item name="colorTertiary">@color/white</item>
-        <item name="colorTertiaryContainer">@color/red_100</item>
-        <item name="colorOnTertiaryContainer">@color/red_900</item>
+        <item name="colorTertiaryContainer">?superColor</item>
+        <item name="colorOnTertiaryContainer">?superColor</item>
 
-        <item name="android:statusBarColor" tools:targetApi="l">@color/red_500</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?superColor</item>
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/MyInputStyle</item>
         <item name="bottomAppBarStyle">@style/MyBottomAppBarStyle</item>
@@ -26,7 +26,7 @@
         <item name="boxStrokeColor">#FF0000</item>
     </style>
     <style name="MyBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="android:backgroundTint">@color/red_100</item>
+        <item name="android:backgroundTint">?superColor</item>
     </style>
     <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
 
