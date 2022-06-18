@@ -20,6 +20,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.FragmentPictureOfTheDayBinding
 import ru.geekbrains.materialdesign.view.MainActivity
+import ru.geekbrains.materialdesign.view.api.ApiFragment
+import ru.geekbrains.materialdesign.view.api.BaseFragment
 import ru.geekbrains.materialdesign.view.settings.SettingsFragment
 import ru.geekbrains.materialdesign.viewmodel.*
 import java.text.SimpleDateFormat
@@ -51,7 +53,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_fav -> {
+                requireActivity().supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container, ApiFragment.newInstance())
+                    .addToBackStack("")
+                    .commit()
+            }
             R.id.app_bar_settings -> {
                 requireActivity().supportFragmentManager
                     .beginTransaction()
