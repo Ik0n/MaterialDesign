@@ -28,7 +28,11 @@ import ru.geekbrains.materialdesign.viewmodel.PictureOfTheDayViewModel
 const val THEME = "THEME"
 const val MODE = "MODE"
 
-class SettingsFragment : Fragment() {
+const val BLUE_THEME = 1
+const val GREEN_THEME = 2
+const val RED_THEME = 3
+
+class SettingsFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentSettingsBinding? = null
     val binding: FragmentSettingsBinding get() { return _binding!! }
@@ -44,6 +48,10 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.chipRedTheme.setOnClickListener(this)
+        binding.chipGreenTheme.setOnClickListener(this)
+        binding.chipBlueTheme.setOnClickListener(this)
+
         binding.apply {
 
             when(Parameters.getInstance().theme) {
@@ -53,25 +61,18 @@ class SettingsFragment : Fragment() {
             }
 
             when(Parameters.getInstance().mode) {
-                AppCompatDelegate.MODE_NIGHT_NO -> chipLightMode.isChecked = true
-                AppCompatDelegate.MODE_NIGHT_YES -> chipDarkMode.isChecked = true
+                AppCompatDelegate.MODE_NIGHT_NO -> {
+                    chipLightMode.isChecked = true
+                    if  (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+                AppCompatDelegate.MODE_NIGHT_YES -> {
+                    chipDarkMode.isChecked = true
+                    if  (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
             }
 
-            chipRedTheme.setOnClickListener {
-                Parameters.getInstance().theme = R.style.MyRedTheme
-                requireActivity().recreate()
-                saveTheme(R.style.MyRedTheme)
-            }
-            chipGreenTheme.setOnClickListener {
-                Parameters.getInstance().theme = R.style.MyGreenTheme
-                requireActivity().recreate()
-                saveTheme(R.style.MyGreenTheme)
-            }
-            chipBlueTheme.setOnClickListener {
-                Parameters.getInstance().theme = R.style.MyBlueTheme
-                requireActivity().recreate()
-                saveTheme(R.style.MyBlueTheme)
-            }
             chipLightMode.setOnClickListener {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 Parameters.getInstance().mode = AppCompatDelegate.MODE_NIGHT_NO
@@ -83,6 +84,18 @@ class SettingsFragment : Fragment() {
                 saveMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
+    }
+
+    private fun setTheme(theme: Int) {
+        var temp = when(theme) {
+            RED_THEME -> R.style.MyRedTheme
+            GREEN_THEME -> R.style.MyGreenTheme
+            BLUE_THEME -> R.style.MyBlueTheme
+            else -> R.style.MyBlueTheme
+        }
+        Parameters.getInstance().theme = temp
+        requireActivity().recreate()
+        saveTheme(temp)
     }
 
     private fun saveTheme(theme: Int) {
@@ -111,5 +124,13 @@ class SettingsFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = SettingsFragment()
+    }
+
+    override fun onClick(chip: View?) {
+        when(chip) {
+            binding.chipRedTheme -> setTheme(RED_THEME)
+            binding.chipGreenTheme -> setTheme(GREEN_THEME)
+            binding.chipBlueTheme -> setTheme(BLUE_THEME)
+        }
     }
 }
