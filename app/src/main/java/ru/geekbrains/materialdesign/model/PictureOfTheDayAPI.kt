@@ -27,4 +27,5 @@ interface PictureOfTheDayAPI {
         @Query("date") date: String = SimpleDateFormat("yyyy-MM-dd")
             .format(System.currentTimeMillis() - (86400000 * 2))
     ) : Call<PictureOfTheDayServerResponseData>
+
 }
