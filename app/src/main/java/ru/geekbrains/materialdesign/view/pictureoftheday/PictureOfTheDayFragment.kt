@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -153,22 +154,36 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) {
-
         when(appState) {
             is AppState.Success -> {
-                binding.imageView.load(appState.serverResponseData.hdurl) {
-                    // placeholder - error - transform -
-                }
-                binding.let {
-                    it.bottomSheet.title.text = appState.serverResponseData.title
-                    it.bottomSheet.explanation.text = appState.serverResponseData.explanation
+                if (appState.serverResponseData.mediaType == "video") {
+                    with(binding) {
+                        imageView.visibility = View.GONE
+                        videoUrl.visibility = View.VISIBLE
+                        videoUrl.text = "Сегодня у нас нет картинки," +
+                                " но есть видео! ${appState.serverResponseData.url} \n Кликни чтобы открыть!"
+                        videoUrl.setOnClickListener {
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = Uri.parse(appState.serverResponseData.url)
+                            }
+                            startActivity(intent)
+                        }
+                    }
+                } else {
+                    binding.imageView.load(appState.serverResponseData.hdurl)
+                    binding.let {
+                        it.bottomSheet.title.text = appState.serverResponseData.title
+                        it.bottomSheet.explanation.text = appState.serverResponseData.explanation
+                    }
                 }
             }
             is AppState.Loading -> {
                 binding.imageView.load(R.drawable.ic_no_photo_vector)
+
                 binding.let {
                     it.bottomSheet.title.text = ""
                     it.bottomSheet.explanation.text = ""
+                    it.videoUrl.visibility = View.GONE
                 }
             }
             is AppState.Error -> {
@@ -176,6 +191,7 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.let {
                     it.bottomSheet.title.text = "Error"
                     it.bottomSheet.explanation.text = appState.error.message
+                    it.videoUrl.visibility = View.GONE
                 }
             }
         }
