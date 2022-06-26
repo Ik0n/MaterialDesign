@@ -40,6 +40,10 @@ class LayoutFragment : Fragment() {
                     true
                 }
                 R.id.action_bottom_navigation_layout_coordinator -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.layout_container, CoordinatorLayout.newInstance())
+                        .commit()
                     true
                 }
                 R.id.action_bottom_navigation_layout_motion -> {
