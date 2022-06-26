@@ -47,6 +47,10 @@ class LayoutFragment : Fragment() {
                     true
                 }
                 R.id.action_bottom_navigation_layout_motion -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.layout_container, MotionLayout.newInstance())
+                        .commit()
                     true
                 }
                 else -> true
