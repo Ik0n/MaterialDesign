@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.geekbrains.materialdesign.databinding.FragmentCoordinatorLayoutBinding
-import ru.geekbrains.materialdesign.databinding.FragmentMotionLayoutEndBinding
-import ru.geekbrains.materialdesign.view.layouts.behaviors.FadeBehavior
+import ru.geekbrains.materialdesign.databinding.FragmentMotionLayoutBinding
 
 class MotionLayout : Fragment() {
 
-    private var _binding: FragmentMotionLayoutEndBinding? = null
-    private val binding: FragmentMotionLayoutEndBinding get() { return _binding!! }
+    private var _binding: FragmentMotionLayoutBinding? = null
+    private val binding: FragmentMotionLayoutBinding get() { return _binding!! }
     private var flag = false
 
     override fun onCreateView(
@@ -23,7 +21,7 @@ class MotionLayout : Fragment() {
 
 
     ): View {
-        _binding = FragmentMotionLayoutEndBinding.inflate(inflater, container, false)
+        _binding = FragmentMotionLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
