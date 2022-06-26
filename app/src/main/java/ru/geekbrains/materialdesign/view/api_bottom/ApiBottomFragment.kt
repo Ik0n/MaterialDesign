@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.geekbrains.materialdesign.R
-import ru.geekbrains.materialdesign.databinding.FragmentApiBinding
 import ru.geekbrains.materialdesign.databinding.FragmentApiBottomBinding
+import ru.geekbrains.materialdesign.utills.EARTH_FRAGMENT
+import ru.geekbrains.materialdesign.utills.MARS_FRAGMENT
+import ru.geekbrains.materialdesign.utills.SYSTEM_FRAGMENT
 import ru.geekbrains.materialdesign.view.api.BaseFragment
-import ru.geekbrains.materialdesign.view.api.BaseFragment.Companion.EARTH_FRAGMENT
-import ru.geekbrains.materialdesign.view.api.BaseFragment.Companion.MARS_FRAGMENT
-import ru.geekbrains.materialdesign.view.api.BaseFragment.Companion.SYSTEM_FRAGMENT
 
 class ApiBottomFragment : Fragment() {
 
@@ -30,40 +29,27 @@ class ApiBottomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initContainer()
+        startFragment()
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
-                R.id.action_bottom_navigation_view_earth -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(EARTH_FRAGMENT))
-                        .addToBackStack("")
-                        .commit()
-                }
-                R.id.action_bottom_navigation_view_mars -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(MARS_FRAGMENT))
-                        .addToBackStack("")
-                        .commit()
-                }
-                R.id.action_bottom_navigation_view_system -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(SYSTEM_FRAGMENT))
-                        .addToBackStack("")
-                        .commit()
-                }
-                else -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(EARTH_FRAGMENT))
-                        .addToBackStack("")
-                        .commit()
-                }
+                R.id.action_bottom_navigation_view_earth -> startFragment(EARTH_FRAGMENT)
+                R.id.action_bottom_navigation_view_mars -> startFragment(MARS_FRAGMENT)
+                R.id.action_bottom_navigation_view_system -> startFragment(SYSTEM_FRAGMENT)
+                else -> startFragment(EARTH_FRAGMENT)
             }
             true
         }
     }
 
-    private fun initContainer() {
+    private fun startFragment(fragment: Int) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(fragment))
+            .addToBackStack("")
+            .commit()
+    }
+
+    private fun startFragment() {
         requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(EARTH_FRAGMENT))

@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.FragmentApiBinding
-import ru.geekbrains.materialdesign.databinding.FragmentSettingsBinding
-import ru.geekbrains.materialdesign.view.settings.SettingsFragment
+import ru.geekbrains.materialdesign.utills.*
 
 class ApiFragment : Fragment() {
 
@@ -32,14 +30,14 @@ class ApiFragment : Fragment() {
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager
         ) { tab, position -> tab.text =
-            BaseFragment.newInstance(position).arguments?.getString(BaseFragment.BASE_FRAGMENT_NAME)
+            BaseFragment.newInstance(position).arguments?.getString(BASE_FRAGMENT_NAME)
                 .toString()
             tab.icon = when (
-                BaseFragment.newInstance(position).arguments?.getInt(BaseFragment.BASE_FRAGMENT_ICON)
+                BaseFragment.newInstance(position).arguments?.getInt(BASE_FRAGMENT_ICON)
             ) {
-                BaseFragment.EARTH_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_earth)
-                BaseFragment.MARS_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_mars)
-                BaseFragment.SYSTEM_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_system)
+                EARTH_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_earth)
+                MARS_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_mars)
+                SYSTEM_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_system)
                 else -> resources.getDrawable(R.drawable.ic_earth)
             }
         }.attach()

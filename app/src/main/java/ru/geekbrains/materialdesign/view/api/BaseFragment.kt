@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.geekbrains.materialdesign.R
-import ru.geekbrains.materialdesign.view.settings.SettingsFragment
+import ru.geekbrains.materialdesign.utills.*
 
 class BaseFragment : Fragment() {
 
@@ -30,22 +30,6 @@ class BaseFragment : Fragment() {
     }
 
     companion object {
-        const val EARTH_FRAGMENT = 0
-        const val MARS_FRAGMENT = 1
-        const val SYSTEM_FRAGMENT = 2
-
-        const val BASE_FRAGMENT_TYPE = "BASE_FRAGMENT_TYPE"
-        const val BASE_FRAGMENT_NAME = "BASE_FRAGMENT_NAME"
-        const val BASE_FRAGMENT_ICON = "BASE_FRAGMENT_ICON"
-
-        const val EARTH_FRAGMENT_NAME = "Earth"
-        const val MARS_FRAGMENT_NAME = "Mars"
-        const val SYSTEM_FRAGMENT_NAME = "System"
-
-        const val EARTH_FRAGMENT_ICON = 0
-        const val MARS_FRAGMENT_ICON = 1
-        const val SYSTEM_FRAGMENT_ICON = 2
-
         @JvmStatic
         fun newInstance(type:Int) : Fragment {
             return BaseFragment().apply {
@@ -77,5 +61,4 @@ class BaseFragment : Fragment() {
             }
         }
     }
-
 }

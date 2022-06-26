@@ -3,16 +3,10 @@ package ru.geekbrains.materialdesign.view.pictureoftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -20,29 +14,30 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.FragmentPictureOfTheDayBinding
+import ru.geekbrains.materialdesign.utills.DAY_BEFORE_YESTERDAY
+import ru.geekbrains.materialdesign.utills.TODAY
+import ru.geekbrains.materialdesign.utills.YESTERDAY
 import ru.geekbrains.materialdesign.view.MainActivity
 import ru.geekbrains.materialdesign.view.api.ApiFragment
-import ru.geekbrains.materialdesign.view.api.BaseFragment
 import ru.geekbrains.materialdesign.view.settings.SettingsFragment
-import ru.geekbrains.materialdesign.viewmodel.*
-import java.text.SimpleDateFormat
-import java.util.*
+import ru.geekbrains.materialdesign.viewmodel.AppState
+import ru.geekbrains.materialdesign.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfTheDayFragment : Fragment() {
 
-    var isMain = true
+    private var isMain = true
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
-    val binding: FragmentPictureOfTheDayBinding get() { return _binding!! }
+    private val binding: FragmentPictureOfTheDayBinding get() { return _binding!! }
 
-    val viewModel:PictureOfTheDayViewModel by lazy {
+    private val viewModel:PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,12 +72,16 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
         setHasOptionsMenu(true)
+
         (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
-        viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
-            renderData(it)
-        })
-        viewModel.sendServerRequest(TODAY)
+
+        sendServerRequest()
+
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
@@ -101,11 +100,9 @@ class PictureOfTheDayFragment : Fragment() {
                     }
                 }
             }
-
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
             }
-
         })
 
         binding.fab.setOnClickListener {
@@ -134,23 +131,28 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         binding.chip1.setOnClickListener {
-            viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
-                renderData(it)
-            })
-            viewModel.sendServerRequest(TODAY)
+            sendServerRequest()
         }
         binding.chip2.setOnClickListener {
-            viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
-                renderData(it)
-            })
-            viewModel.sendServerRequest(YESTERDAY)
+            sendServerRequest(YESTERDAY)
         }
         binding.chip3.setOnClickListener {
-            viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
-                renderData(it)
-            })
-            viewModel.sendServerRequest(DAY_BEFORE_YESTERDAY)
+            sendServerRequest(DAY_BEFORE_YESTERDAY)
         }
+    }
+
+    private fun sendServerRequest(date: String) {
+        viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
+            renderData(it)
+        })
+        viewModel.sendServerRequest(date)
+    }
+
+    private fun sendServerRequest() {
+        viewModel.getLiveDataFromViewToObserve().observe(viewLifecycleOwner, Observer {
+            renderData(it)
+        })
+        viewModel.sendServerRequest(TODAY)
     }
 
     private fun renderData(appState: AppState) {
@@ -207,4 +209,5 @@ class PictureOfTheDayFragment : Fragment() {
         @JvmStatic
         fun newInstance() = PictureOfTheDayFragment()
     }
+
 }
