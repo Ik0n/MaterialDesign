@@ -19,4 +19,7 @@
     <string name="action_bottom_navigation_view_earth">Earth</string>
     <string name="action_bottom_navigation_view_mars">Mars</string>
     <string name="action_bottom_navigation_view_system">System</string>
+    <string name="action_bottom_navigation_layout_constraint">Constraint</string>
+    <string name="action_bottom_navigation_layout_coordinator">Coordinator</string>
+    <string name="action_bottom_navigation_layout_motion">Motion</string>
 </resources>
