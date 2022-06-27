@@ -1,14 +1,14 @@
 package ru.geekbrains.materialdesign.view
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import ru.geekbrains.materialdesign.R
+import ru.geekbrains.materialdesign.utills.MODE
 import ru.geekbrains.materialdesign.utills.Parameters
+import ru.geekbrains.materialdesign.utills.THEME
 import ru.geekbrains.materialdesign.view.pictureoftheday.PictureOfTheDayFragment
-import ru.geekbrains.materialdesign.view.settings.MODE
-import ru.geekbrains.materialdesign.view.settings.THEME
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

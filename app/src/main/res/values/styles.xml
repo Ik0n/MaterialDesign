@@ -58,4 +58,8 @@
     <style name="MyShapeAppearanceSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
     </style>
+
+    <style name="MyBottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="itemTextAppearanceInactive">@style/MyTextAppearance</item>
+    </style>
 </resources>

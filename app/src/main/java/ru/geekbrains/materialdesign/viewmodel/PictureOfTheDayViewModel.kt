@@ -8,10 +8,9 @@ import retrofit2.Response
 import ru.geekbrains.materialdesign.BuildConfig
 import ru.geekbrains.materialdesign.model.PictureOfTheDayRetrofitImpl
 import ru.geekbrains.materialdesign.model.PictureOfTheDayServerResponseData
-
-const val TODAY = "today"
-const val YESTERDAY = "yesterday"
-const val DAY_BEFORE_YESTERDAY = "day_before_yesterday"
+import ru.geekbrains.materialdesign.utills.DAY_BEFORE_YESTERDAY
+import ru.geekbrains.materialdesign.utills.TODAY
+import ru.geekbrains.materialdesign.utills.YESTERDAY
 
 class PictureOfTheDayViewModel(
     private val liveDataForViewToObserve: MutableLiveData<AppState> = MutableLiveData(),
