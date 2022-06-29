@@ -1,6 +1,7 @@
 package ru.geekbrains.materialdesign.view.pictureoftheday
 
 import android.os.Bundle
+import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_one -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, ApiBottomFragment.newInstance())
                         .addToBackStack("")
                         .commit()
@@ -44,6 +46,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_two -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, LayoutFragment.newInstance())
                         .addToBackStack("")
                         .commit()
@@ -51,6 +54,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_three -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, AnimationsFragment.newInstance())
                         .addToBackStack("")
                         .commit()

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -31,6 +33,8 @@ class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding get() { return _binding!! }
 
+    private var flag = false
+
     private val viewModel:PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
@@ -53,6 +57,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_fav -> {
                 requireActivity().supportFragmentManager
                     .beginTransaction()
+                    .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                     .replace(R.id.container, ApiFragment.newInstance())
                     .addToBackStack("")
                     .commit()
@@ -60,6 +65,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_settings -> {
                 requireActivity().supportFragmentManager
                     .beginTransaction()
+                    .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                     .replace(R.id.container, SettingsFragment.newInstance())
                     .addToBackStack("")
                     .commit()
@@ -140,6 +146,23 @@ class PictureOfTheDayFragment : Fragment() {
         binding.chip3.setOnClickListener {
             sendServerRequest(DAY_BEFORE_YESTERDAY)
         }
+
+        binding.imageView.setOnClickListener {
+            val transition = ChangeImageTransform()
+            val transitionSet = TransitionSet().apply {
+                addTransition(transition)
+            }
+            TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+            with(binding) {
+                if (flag) {
+                    imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                } else {
+                    imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                }
+            }
+            flag = !flag
+        }
+
     }
 
     private fun sendServerRequest(date: String) {
