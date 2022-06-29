@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.*
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -156,6 +157,13 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) {
+        var transitionSet = TransitionSet().apply {
+            addTransition(Fade(Fade.IN))
+            addTransition(ChangeImageTransform())
+            addTransition(ChangeBounds())
+            addTransition(Fade(Fade.OUT))
+        }
+        TransitionManager.beginDelayedTransition(binding.root, transitionSet)
         when(appState) {
             is AppState.Success -> {
                 if (appState.serverResponseData.mediaType == "video") {

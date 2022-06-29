@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
-import ru.geekbrains.materialdesign.view.api_bottom.ApiBottomFragment
+import ru.geekbrains.materialdesign.view.apibottom.ApiBottomFragment
 import ru.geekbrains.materialdesign.view.layouts.LayoutFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {

@@ -1,4 +1,4 @@
-package ru.geekbrains.materialdesign.view.api_bottom
+package ru.geekbrains.materialdesign.view.apibottom
 
 import android.os.Bundle
 import android.view.LayoutInflater
