@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
 import ru.geekbrains.materialdesign.view.api_bottom.ApiBottomFragment
+import ru.geekbrains.materialdesign.view.layouts.LayoutFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
@@ -40,7 +41,13 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                         .addToBackStack("")
                         .commit()
                 }
-                R.id.navigation_two -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                R.id.navigation_two -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, LayoutFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
             }
             true
         }
