@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
+import ru.geekbrains.materialdesign.view.animations.AnimationsFragment
 import ru.geekbrains.materialdesign.view.apibottom.ApiBottomFragment
 import ru.geekbrains.materialdesign.view.layouts.LayoutFragment
 
@@ -44,6 +45,13 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.container, LayoutFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
+                R.id.navigation_three -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, AnimationsFragment.newInstance())
                         .addToBackStack("")
                         .commit()
                 }
