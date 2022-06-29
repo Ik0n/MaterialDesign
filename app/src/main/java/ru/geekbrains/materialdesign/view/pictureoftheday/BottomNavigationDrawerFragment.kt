@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
 import ru.geekbrains.materialdesign.view.animations.AnimationsFragment
+import ru.geekbrains.materialdesign.view.animations.ConstraintSetFragment
 import ru.geekbrains.materialdesign.view.apibottom.ApiBottomFragment
 import ru.geekbrains.materialdesign.view.layouts.LayoutFragment
 
@@ -56,6 +57,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, AnimationsFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
+                R.id.navigation_four -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+                        .replace(R.id.container, ConstraintSetFragment.newInstance())
                         .addToBackStack("")
                         .commit()
                 }
