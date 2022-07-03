@@ -9,5 +9,15 @@
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
             android:title="На экран 2" />
+        <item
+            android:id="@+id/navigation_three"
+            android:icon="@drawable/ic_system"
+            android:title="Animations"
+            />
+        <item
+            android:id="@+id/navigation_four"
+            android:icon="@drawable/ic_mars"
+            android:title="ConstraintSet"
+            />
     </group>
 </menu>

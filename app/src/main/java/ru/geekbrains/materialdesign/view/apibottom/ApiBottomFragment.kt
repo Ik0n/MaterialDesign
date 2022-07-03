@@ -1,4 +1,4 @@
-package ru.geekbrains.materialdesign.view.api_bottom
+package ru.geekbrains.materialdesign.view.apibottom
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -43,7 +43,9 @@ class ApiBottomFragment : Fragment() {
     }
 
     private fun startFragment(fragment: Int) {
-        requireActivity().supportFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
             .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(fragment))
             .addToBackStack("")
             .commit()
@@ -52,6 +54,7 @@ class ApiBottomFragment : Fragment() {
     private fun startFragment() {
         requireActivity().supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
             .replace(R.id.fragment_api_bottom_container, BaseFragment.newInstance(EARTH_FRAGMENT))
             .commit()
 

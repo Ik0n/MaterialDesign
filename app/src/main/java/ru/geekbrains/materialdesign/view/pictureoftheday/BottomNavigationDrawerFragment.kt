@@ -1,14 +1,16 @@
 package ru.geekbrains.materialdesign.view.pictureoftheday
 
 import android.os.Bundle
+import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
-import ru.geekbrains.materialdesign.view.api_bottom.ApiBottomFragment
+import ru.geekbrains.materialdesign.view.animations.AnimationsFragment
+import ru.geekbrains.materialdesign.view.animations.ConstraintSetFragment
+import ru.geekbrains.materialdesign.view.apibottom.ApiBottomFragment
 import ru.geekbrains.materialdesign.view.layouts.LayoutFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -37,6 +39,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_one -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, ApiBottomFragment.newInstance())
                         .addToBackStack("")
                         .commit()
@@ -44,7 +47,24 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_two -> {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
                         .replace(R.id.container, LayoutFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
+                R.id.navigation_three -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+                        .replace(R.id.container, AnimationsFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
+                R.id.navigation_four -> {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+                        .replace(R.id.container, ConstraintSetFragment.newInstance())
                         .addToBackStack("")
                         .commit()
                 }
