@@ -13,7 +13,9 @@ class RecyclerFragment : Fragment() {
     private var _binding: FragmentRecyclerBinding? = null
     private val binding: FragmentRecyclerBinding get() { return _binding!! }
 
-    val adapter = RecyclerAdapter()
+    private val adapter = RecyclerAdapter { position, data ->
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

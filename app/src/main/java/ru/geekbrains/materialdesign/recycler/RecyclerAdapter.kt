@@ -12,14 +12,16 @@ const val TYPE_EARTH = 0
 const val TYPE_MARS = 1
 const val TYPE_HEADER = 2
 
-class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>()  {
+class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>()  {
 
-    private var data : List<Data> = listOf()
+    private var data : MutableList<Data> = mutableListOf()
 
-    fun setData(data: List<Data>) {
+    fun setData(data: MutableList<Data>) {
         this.data = data
         notifyDataSetChanged()
     }
+
+    private fun generateItem() = Data("Mars o99o", "", TYPE_MARS)
 
     override fun getItemViewType(position: Int): Int {
         return data[position].type
@@ -57,9 +59,19 @@ class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>()
         }
     }
 
-    class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) : BaseViewHolder(binding.root) {
+    inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) : BaseViewHolder(binding.root) {
         override fun bind(data : Data) {
-            binding.name.text = data.name
+            with (binding) {
+                this.name.text = data.name
+                this.addItemImageView.setOnClickListener {
+                    this@RecyclerAdapter.data.add(adapterPosition, generateItem())
+                    notifyItemInserted(adapterPosition)
+                }
+                this.removeItemImageView.setOnClickListener {
+                    this@RecyclerAdapter.data.removeAt(layoutPosition)
+                    notifyItemRemoved(layoutPosition)
+                }
+            }
         }
     }
 
