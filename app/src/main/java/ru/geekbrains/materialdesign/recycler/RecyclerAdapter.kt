@@ -14,17 +14,17 @@ const val TYPE_HEADER = 2
 
 class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>()  {
 
-    private var data : MutableList<Data> = mutableListOf()
+    private var data : MutableList<Pair<Data, Boolean>> = mutableListOf()
 
-    fun setData(data: MutableList<Data>) {
+    fun setData(data: MutableList<Pair<Data, Boolean>>) {
         this.data = data
         notifyDataSetChanged()
     }
 
-    private fun generateItem() = Data("Mars o99o", "", TYPE_MARS)
+    private fun generateItem() = Pair(Data("Mars o99o", "", TYPE_MARS), false)
 
     override fun getItemViewType(position: Int): Int {
-        return data[position].type
+        return data[position].first.type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -53,16 +53,17 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapte
     }
 
     class EarthViewHolder(val binding: FragmentRecyclerItemEarthBinding) : BaseViewHolder(binding.root) {
-        override fun bind(data : Data) {
-            binding.name.text = data.name
-            binding.descriptionTextView.text = data.description
+        override fun bind(data : Pair<Data, Boolean>) {
+            binding.name.text = data.first.name
+            binding.descriptionTextView.text = data.first.description
         }
     }
 
     inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) : BaseViewHolder(binding.root) {
-        override fun bind(data : Data) {
+        override fun bind(data : Pair<Data, Boolean>) {
             with (binding) {
-                this.name.text = data.name
+                this.name.text = data.first.name
+                this.marsDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
                 this.addItemImageView.setOnClickListener {
                     this@RecyclerAdapter.data.add(adapterPosition, generateItem())
                     notifyItemInserted(adapterPosition)
@@ -71,17 +72,35 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapte
                     this@RecyclerAdapter.data.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
+                this.moveItemUp.setOnClickListener {
+                    this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
+                        this@RecyclerAdapter.data.add(layoutPosition - 1, this)
+                    }
+                    notifyItemMoved(layoutPosition, layoutPosition - 1)
+                }
+                this.moveItemDown.setOnClickListener {
+                    this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
+                        this@RecyclerAdapter.data.add(layoutPosition + 1, this)
+                    }
+                    notifyItemMoved(layoutPosition, layoutPosition + 1)
+                }
+                this.marsImageView.setOnClickListener {
+                    this@RecyclerAdapter.data[layoutPosition] = this@RecyclerAdapter.data[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
+                }
             }
         }
     }
 
     class HeaderViewHolder(val binding: FragmentRecyclerItemHeaderBinding) : BaseViewHolder(binding.root) {
-        override fun bind(data : Data) {
-            binding.name.text = data.name
+        override fun bind(data : Pair<Data, Boolean>) {
+            binding.name.text = data.first.name
         }
     }
 
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        abstract fun bind(data: Data)
+        abstract fun bind(data: Pair<Data, Boolean>)
     }
 }

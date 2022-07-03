@@ -30,16 +30,16 @@ class RecyclerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter.apply {
             setData(arrayListOf(
-                Data("Header", "header", TYPE_HEADER),
-                Data("Earth1", "Earth1", TYPE_EARTH),
-                Data("Earth1", "Earth1", TYPE_EARTH),
-                Data("Earth2", "Earth2", TYPE_EARTH),
-                Data("Mars2", "Mars2", TYPE_MARS),
-                Data("Header", "header", TYPE_HEADER),
-                Data("Earth3", "Earth3", TYPE_EARTH),
-                Data("Earth1", "Earth1", TYPE_EARTH),
-                Data("Earth4", "Earth4", TYPE_EARTH),
-                Data("Mars4", "Mars4", TYPE_MARS),
+                Pair(Data("Header", "header", TYPE_HEADER), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("MASR", "MASR", TYPE_MARS), false),
+                Pair(Data("Header", "header", TYPE_HEADER), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data("MASR", "MASR", TYPE_MARS), false),
             ))
         }
 
