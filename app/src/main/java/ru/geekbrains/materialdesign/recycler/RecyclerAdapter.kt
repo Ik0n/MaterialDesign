@@ -3,7 +3,9 @@ package ru.geekbrains.materialdesign.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.FragmentRecyclerItemEarthBinding
 import ru.geekbrains.materialdesign.databinding.FragmentRecyclerItemHeaderBinding
 import ru.geekbrains.materialdesign.databinding.FragmentRecyclerItemMarsBinding
@@ -12,7 +14,8 @@ const val TYPE_EARTH = 0
 const val TYPE_MARS = 1
 const val TYPE_HEADER = 2
 
-class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>()  {
+class RecyclerAdapter(val callback: ActionRecyclerAdapter) :
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter  {
 
     private var data : MutableList<Pair<Data, Boolean>> = mutableListOf()
 
@@ -52,14 +55,16 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapte
         return data.size
     }
 
-    class EarthViewHolder(val binding: FragmentRecyclerItemEarthBinding) : BaseViewHolder(binding.root) {
+    class EarthViewHolder(val binding: FragmentRecyclerItemEarthBinding) :
+        BaseViewHolder(binding.root) {
         override fun bind(data : Pair<Data, Boolean>) {
             binding.name.text = data.first.name
             binding.descriptionTextView.text = data.first.description
         }
     }
 
-    inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) : BaseViewHolder(binding.root) {
+    inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) :
+        BaseViewHolder(binding.root), ItemTouchHelperViewHolder {
         override fun bind(data : Pair<Data, Boolean>) {
             with (binding) {
                 this.name.text = data.first.name
@@ -92,9 +97,18 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapte
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorAccent))
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
-    class HeaderViewHolder(val binding: FragmentRecyclerItemHeaderBinding) : BaseViewHolder(binding.root) {
+    class HeaderViewHolder(val binding: FragmentRecyclerItemHeaderBinding) :
+        BaseViewHolder(binding.root) {
         override fun bind(data : Pair<Data, Boolean>) {
             binding.name.text = data.first.name
         }
@@ -102,5 +116,17 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) : RecyclerView.Adapte
 
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         abstract fun bind(data: Pair<Data, Boolean>)
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        this.data.removeAt(fromPosition).apply {
+            this@RecyclerAdapter.data.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        this.data.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
