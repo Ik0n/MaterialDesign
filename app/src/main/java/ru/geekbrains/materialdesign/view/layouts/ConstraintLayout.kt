@@ -17,9 +17,6 @@ class ConstraintLayout : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
-
-
     ): View {
         _binding = FragmentConstraintLayoutBinding.inflate(inflater, container, false)
         return binding.root

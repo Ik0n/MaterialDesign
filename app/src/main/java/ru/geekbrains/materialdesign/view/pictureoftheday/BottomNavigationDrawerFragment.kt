@@ -43,6 +43,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_four -> startFragment(ConstraintSetFragment.newInstance())
                 R.id.navigation_five -> startFragment(RecyclerFragment.newInstance())
             }
+            dismiss()
             true
         }
     }
