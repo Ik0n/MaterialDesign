@@ -42,17 +42,23 @@ class ConstraintSetFragment : Fragment() {
             if (flag) {
                 constraintSet.apply {
                     connect(R.id.title, ConstraintSet.END, R.id.constraint_container, ConstraintSet.END)
+                    clear(R.id.date, ConstraintSet.BOTTOM)
                     connect(R.id.date, ConstraintSet.TOP, R.id.title, ConstraintSet.BOTTOM)
+                    clear(R.id.date, ConstraintSet.START)
                     connect(R.id.date, ConstraintSet.END, R.id.title, ConstraintSet.END)
+                    clear(R.id.description, ConstraintSet.TOP)
                     connect(R.id.description, ConstraintSet.BOTTOM, R.id.constraint_container, ConstraintSet.BOTTOM)
                     applyTo(binding.root)
                 }
             } else {
                 constraintSet.apply {
                     connect(R.id.title, ConstraintSet.END, R.id.constraint_container, ConstraintSet.START)
+                    clear(R.id.date, ConstraintSet.BOTTOM)
                     connect(R.id.date, ConstraintSet.TOP, R.id.title, ConstraintSet.BOTTOM)
+                    clear(R.id.date, ConstraintSet.START)
                     connect(R.id.date, ConstraintSet.END, R.id.title, ConstraintSet.END)
-                    connect(R.id.description, ConstraintSet.BOTTOM, R.id.constraint_container, ConstraintSet.TOP)
+                    clear(R.id.description, ConstraintSet.BOTTOM)
+                    connect(R.id.description, ConstraintSet.TOP, R.id.constraint_container, ConstraintSet.BOTTOM)
                     applyTo(binding.root)
                 }
             }
