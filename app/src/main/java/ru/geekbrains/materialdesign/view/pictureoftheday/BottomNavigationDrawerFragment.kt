@@ -1,13 +1,14 @@
 package ru.geekbrains.materialdesign.view.pictureoftheday
 
 import android.os.Bundle
-import android.transition.Fade
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.geekbrains.materialdesign.R
 import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
+import ru.geekbrains.materialdesign.recycler.RecyclerFragment
 import ru.geekbrains.materialdesign.view.animations.AnimationsFragment
 import ru.geekbrains.materialdesign.view.animations.ConstraintSetFragment
 import ru.geekbrains.materialdesign.view.apibottom.ApiBottomFragment
@@ -36,41 +37,23 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
-                R.id.navigation_one -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                        .replace(R.id.container, ApiBottomFragment.newInstance())
-                        .addToBackStack("")
-                        .commit()
-                }
-                R.id.navigation_two -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                        .replace(R.id.container, LayoutFragment.newInstance())
-                        .addToBackStack("")
-                        .commit()
-                }
-                R.id.navigation_three -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                        .replace(R.id.container, AnimationsFragment.newInstance())
-                        .addToBackStack("")
-                        .commit()
-                }
-                R.id.navigation_four -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                        .replace(R.id.container, ConstraintSetFragment.newInstance())
-                        .addToBackStack("")
-                        .commit()
-                }
+                R.id.navigation_one -> startFragment(ApiBottomFragment.newInstance())
+                R.id.navigation_two -> startFragment(LayoutFragment.newInstance())
+                R.id.navigation_three -> startFragment(AnimationsFragment.newInstance())
+                R.id.navigation_four -> startFragment(ConstraintSetFragment.newInstance())
+                R.id.navigation_five -> startFragment(RecyclerFragment.newInstance())
             }
             true
         }
+    }
+
+    private fun startFragment(fragment : Fragment) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+            .replace(R.id.container, fragment)
+            .addToBackStack("")
+            .commit()
     }
 
 }

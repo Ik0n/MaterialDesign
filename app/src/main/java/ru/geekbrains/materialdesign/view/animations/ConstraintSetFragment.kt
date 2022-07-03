@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import ru.geekbrains.materialdesign.R
-import ru.geekbrains.materialdesign.databinding.BottomNavigationLayoutBinding
 import ru.geekbrains.materialdesign.databinding.FragmentConstraintSetBinding
 
 class ConstraintSetFragment : Fragment() {
@@ -23,7 +22,7 @@ class ConstraintSetFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentConstraintSetBinding.inflate(inflater, container, false)
         return binding.root
     }

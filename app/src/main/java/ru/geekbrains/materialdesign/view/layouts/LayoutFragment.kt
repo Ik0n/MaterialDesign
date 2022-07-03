@@ -33,29 +33,28 @@ class LayoutFragment : Fragment() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.action_bottom_navigation_layout_constraint -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.layout_container, ConstraintLayout.newInstance())
-                        .commit()
+                    startFragment(ConstraintLayout.newInstance())
                     true
                 }
                 R.id.action_bottom_navigation_layout_coordinator -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.layout_container, CoordinatorLayout.newInstance())
-                        .commit()
+                    startFragment(CoordinatorLayout.newInstance())
                     true
                 }
                 R.id.action_bottom_navigation_layout_motion -> {
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.layout_container, MotionLayout.newInstance())
-                        .commit()
+                    startFragment(MotionLayout.newInstance())
                     true
                 }
                 else -> true
             }
         }
+    }
+
+    private fun startFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+            .replace(R.id.layout_container, fragment)
+            .commit()
     }
 
     override fun onDestroy() {
