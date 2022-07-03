@@ -14,7 +14,7 @@ class RecyclerFragment : Fragment() {
 
     private var _binding: FragmentRecyclerBinding? = null
     private val binding: FragmentRecyclerBinding get() { return _binding!! }
-
+    private var isNewList = false
     private val adapter = RecyclerAdapter { position, data ->
 
     }
@@ -32,22 +32,55 @@ class RecyclerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter.apply {
             setData(arrayListOf(
-                Pair(Data("Header", "header", TYPE_HEADER), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("MASR", "MASR", TYPE_MARS), false),
-                Pair(Data("Header", "header", TYPE_HEADER), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("Earth1", "Earth1", TYPE_EARTH), false),
-                Pair(Data("MASR", "MASR", TYPE_MARS), false),
+                Pair(Data(0,"Header", "header", TYPE_HEADER), false),
+                Pair(Data(1,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(2,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(3,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(4,"MARS", "MARS", TYPE_MARS), false),
+                Pair(Data(5,"Header", "header", TYPE_HEADER), false),
+                Pair(Data(6,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(7,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(8,"Earth1", "Earth1", TYPE_EARTH), false),
+                Pair(Data(9,"MARS", "MARS", TYPE_MARS), false),
             ))
         }
 
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
 
+        binding.recyclerActivityDiffUtilFAB.setOnClickListener {
+            changeAdapterData()
+        }
+
     }
+
+    private fun changeAdapterData() {
+        adapter.setData(createItemList(isNewList).map { it }.toMutableList())
+        isNewList = !isNewList
+    }
+
+    private fun createItemList(instanceNumber: Boolean): MutableList<Pair<Data, Boolean>> {
+        return when (instanceNumber) {
+            false -> mutableListOf(
+                Pair(Data(id = 0, type = TYPE_HEADER, name = "Header"), false),
+                Pair(Data(id = 1, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 2, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 3, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 4, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 5, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 6, type = TYPE_MARS, name = "Mars", description = ""), false)
+            )
+            true -> mutableListOf(
+                Pair(Data(id = 0, type = TYPE_HEADER, name = "Header"), false),
+                Pair(Data(id = 1, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 2, type = TYPE_MARS, name = "Jupiter", description = ""), false),
+                Pair(Data(id = 3, type = TYPE_MARS, name = "Mars", description = ""), false),
+                Pair(Data(id = 4, type = TYPE_MARS, name = "Neptune", description = ""), false),
+                Pair(Data(id = 5, type = TYPE_MARS, name = "Saturn", description = ""), false),
+                Pair(Data(id = 6, type = TYPE_MARS, name = "Mars", description = ""), false)
+            )
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
