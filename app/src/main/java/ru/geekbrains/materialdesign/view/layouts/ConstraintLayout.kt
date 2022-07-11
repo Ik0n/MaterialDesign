@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.geekbrains.materialdesign.databinding.FragmentConstraintLayoutBinding
-import ru.geekbrains.materialdesign.databinding.FragmentLayoutBinding
 
 class ConstraintLayout : Fragment() {
 
@@ -18,9 +17,6 @@ class ConstraintLayout : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
-
-
     ): View {
         _binding = FragmentConstraintLayoutBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,7 +27,7 @@ class ConstraintLayout : Fragment() {
         binding.group1.visibility = View.GONE
         binding.button1.setOnClickListener {
             flag = !flag
-            if (flag) {
+            if (!flag) {
                 binding.group1.visibility = View.GONE
             } else {
                 binding.group1.visibility = View.VISIBLE

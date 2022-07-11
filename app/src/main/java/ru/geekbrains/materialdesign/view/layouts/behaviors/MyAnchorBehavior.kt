@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.textfield.TextInputLayout
 
 class MyAnchorBehavior(context: Context, attr:AttributeSet? = null) : CoordinatorLayout.Behavior<View>(context, attr) {
     override fun layoutDependsOn(
