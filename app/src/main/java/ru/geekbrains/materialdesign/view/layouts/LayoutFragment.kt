@@ -25,10 +25,7 @@ class LayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.layout_container, ConstraintLayout.newInstance())
-            .commit()
+        startFragment(ConstraintLayout.newInstance())
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {

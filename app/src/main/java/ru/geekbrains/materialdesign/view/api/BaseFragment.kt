@@ -14,7 +14,7 @@ class BaseFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         var layout = R.layout.fragment_earth
 
         arguments?.let {

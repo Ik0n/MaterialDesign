@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ru.geekbrains.materialdesign.databinding.FragmentLayoutBinding
 import ru.geekbrains.materialdesign.databinding.FragmentRecyclerBinding
 
 class RecyclerFragment : Fragment() {
@@ -95,7 +94,7 @@ class RecyclerFragment : Fragment() {
 
 }
 
-class ItemTouchHelperCallback(val adapterCallback : ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
+class ItemTouchHelperCallback(private val adapterCallback : ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder

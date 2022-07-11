@@ -21,7 +21,7 @@ class ApiBottomFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentApiBottomBinding.inflate(inflater, container, false)
         return binding.root
     }

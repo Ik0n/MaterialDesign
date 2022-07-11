@@ -98,6 +98,21 @@ class PictureOfTheDayFragment : Fragment() {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                     }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+
+                    }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+
+                    }
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+
+                    }
                 }
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -173,7 +188,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) {
-        var transitionSet = TransitionSet().apply {
+        val transitionSet = TransitionSet().apply {
             addTransition(Fade(Fade.IN))
             addTransition(ChangeImageTransform())
             addTransition(ChangeBounds())
@@ -200,7 +215,7 @@ class PictureOfTheDayFragment : Fragment() {
                     with(binding) {
                         this.imageView.load(appState.serverResponseData.hdurl)
 
-                        var spannableString = SpannableStringBuilder(appState.serverResponseData.title)
+                        val spannableString = SpannableStringBuilder(appState.serverResponseData.title)
                         spannableString.setSpan(
                             ForegroundColorSpan(Color.MAGENTA),
                             0, spannableString.length,
@@ -223,7 +238,7 @@ class PictureOfTheDayFragment : Fragment() {
             is AppState.Error -> {
                 with(binding) {
                     this.imageView.load(R.drawable.ic_no_photo_vector)
-                    this.bottomSheet.title.text = "Error"
+                    this.bottomSheet.title.text = getString(R.string.error)
                     this.bottomSheet.explanation.text = appState.error.message
                     this.videoUrl.visibility = View.GONE
                 }

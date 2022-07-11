@@ -13,7 +13,7 @@ class SystemFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_system, container, false)
     }
 

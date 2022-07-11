@@ -23,7 +23,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomNavigationLayoutBinding.inflate(inflater)
         return binding.root
     }

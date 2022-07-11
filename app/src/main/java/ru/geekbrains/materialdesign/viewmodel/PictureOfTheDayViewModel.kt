@@ -36,7 +36,7 @@ class PictureOfTheDayViewModel(
 
     }
 
-    val callback = object : Callback<PictureOfTheDayServerResponseData> {
+    private val callback = object : Callback<PictureOfTheDayServerResponseData> {
         override fun onResponse(
             call: Call<PictureOfTheDayServerResponseData>,
             response: Response<PictureOfTheDayServerResponseData>
