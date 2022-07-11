@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.geekbrains.materialdesign.R
@@ -19,7 +20,7 @@ class ApiFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentApiBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,10 +36,10 @@ class ApiFragment : Fragment() {
             tab.icon = when (
                 BaseFragment.newInstance(position).arguments?.getInt(BASE_FRAGMENT_ICON)
             ) {
-                EARTH_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_earth)
-                MARS_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_mars)
-                SYSTEM_FRAGMENT_ICON -> resources.getDrawable(R.drawable.ic_system)
-                else -> resources.getDrawable(R.drawable.ic_earth)
+                EARTH_FRAGMENT_ICON -> ResourcesCompat.getDrawable(resources, R.drawable.ic_earth, context?.theme)
+                MARS_FRAGMENT_ICON -> ResourcesCompat.getDrawable(resources, R.drawable.ic_mars, context?.theme)
+                SYSTEM_FRAGMENT_ICON -> ResourcesCompat.getDrawable(resources, R.drawable.ic_system, context?.theme)
+                else -> ResourcesCompat.getDrawable(resources, R.drawable.ic_earth, context?.theme)
             }
         }.attach()
     }
