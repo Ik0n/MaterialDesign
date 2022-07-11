@@ -96,16 +96,20 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) :
                     notifyItemRemoved(layoutPosition)
                 }
                 this.moveItemUp.setOnClickListener {
-                    this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
-                        this@RecyclerAdapter.data.add(layoutPosition - 1, this)
+                    if (layoutPosition != 0) {
+                        this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
+                            this@RecyclerAdapter.data.add(layoutPosition - 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition - 1)
                     }
-                    notifyItemMoved(layoutPosition, layoutPosition - 1)
                 }
                 this.moveItemDown.setOnClickListener {
-                    this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
-                        this@RecyclerAdapter.data.add(layoutPosition + 1, this)
+                    if (layoutPosition < this@RecyclerAdapter.data.size) {
+                        this@RecyclerAdapter.data.removeAt(layoutPosition).apply {
+                            this@RecyclerAdapter.data.add(layoutPosition + 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
-                    notifyItemMoved(layoutPosition, layoutPosition + 1)
                 }
                 this.marsImageView.setOnClickListener {
                     this@RecyclerAdapter.data[layoutPosition] = this@RecyclerAdapter.data[layoutPosition].let {
@@ -137,10 +141,12 @@ class RecyclerAdapter(val callback: ActionRecyclerAdapter) :
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        this.data.removeAt(fromPosition).apply {
-            this@RecyclerAdapter.data.add(toPosition, this)
+        if (toPosition != 0 && toPosition < data.size) {
+            this.data.removeAt(fromPosition).apply {
+                this@RecyclerAdapter.data.add(toPosition, this)
+            }
+            notifyItemMoved(fromPosition, toPosition)
         }
-        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onItemDismiss(position: Int) {
