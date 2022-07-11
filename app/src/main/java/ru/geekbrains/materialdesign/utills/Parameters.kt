@@ -6,7 +6,7 @@ import ru.geekbrains.materialdesign.R
 class Parameters {
 
     var resetFragment: Boolean = false
-    var theme: Int = R.style.MyBlueTheme
+    var theme: Int = R.style.MySplashTheme
     var mode: Int = AppCompatDelegate.MODE_NIGHT_NO
 
     companion object {
