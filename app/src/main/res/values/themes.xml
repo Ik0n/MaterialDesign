@@ -23,6 +23,8 @@
         <item name="textAppearanceBody2">@style/MyTextAppearance</item>
         <item name="shapeAppearanceSmallComponent">@style/MyShapeAppearanceSmallComponent</item>
         <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
+
+        <item name="fontFamily">@font/english</item>
     </style>
 
     <style name="MyRedTheme" parent="MyBaseTheme">

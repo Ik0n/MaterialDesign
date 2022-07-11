@@ -1,8 +1,12 @@
 package ru.geekbrains.materialdesign.view.pictureoftheday
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.*
 import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -54,20 +58,10 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.app_bar_fav -> {
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                    .replace(R.id.container, ApiFragment.newInstance())
-                    .addToBackStack("")
-                    .commit()
+                startFragment(ApiFragment.newInstance())
             }
             R.id.app_bar_settings -> {
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
-                    .replace(R.id.container, SettingsFragment.newInstance())
-                    .addToBackStack("")
-                    .commit()
+                startFragment(SettingsFragment.newInstance())
             }
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
@@ -189,12 +183,13 @@ class PictureOfTheDayFragment : Fragment() {
         when(appState) {
             is AppState.Success -> {
                 if (appState.serverResponseData.mediaType == "video") {
+                    val videoDescription = "Сегодня у нас нет картинки," +
+                            " но есть видео! ${appState.serverResponseData.url} \n Кликни чтобы открыть!"
                     with(binding) {
-                        imageView.visibility = View.GONE
-                        videoUrl.visibility = View.VISIBLE
-                        videoUrl.text = "Сегодня у нас нет картинки," +
-                                " но есть видео! ${appState.serverResponseData.url} \n Кликни чтобы открыть!"
-                        videoUrl.setOnClickListener {
+                        this.imageView.visibility = View.GONE
+                        this.videoUrl.visibility = View.VISIBLE
+                        this.videoUrl.text = videoDescription
+                        this.videoUrl.setOnClickListener {
                             val intent = Intent(Intent.ACTION_VIEW).apply {
                                 data = Uri.parse(appState.serverResponseData.url)
                             }
@@ -202,32 +197,48 @@ class PictureOfTheDayFragment : Fragment() {
                         }
                     }
                 } else {
-                    binding.imageView.load(appState.serverResponseData.hdurl)
-                    binding.let {
-                        it.bottomSheet.title.text = appState.serverResponseData.title
-                        it.bottomSheet.explanation.text = appState.serverResponseData.explanation
+                    with(binding) {
+                        this.imageView.load(appState.serverResponseData.hdurl)
+
+                        var spannableString = SpannableStringBuilder(appState.serverResponseData.title)
+                        spannableString.setSpan(
+                            ForegroundColorSpan(Color.MAGENTA),
+                            0, spannableString.length,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+
+                        this.bottomSheet.title.text = spannableString
+                        this.bottomSheet.explanation.text = appState.serverResponseData.explanation
                     }
                 }
             }
             is AppState.Loading -> {
-                binding.imageView.load(R.drawable.ic_no_photo_vector)
-
-                binding.let {
-                    it.bottomSheet.title.text = ""
-                    it.bottomSheet.explanation.text = ""
-                    it.videoUrl.visibility = View.GONE
+                with(binding) {
+                    this.imageView.load(R.drawable.ic_no_photo_vector)
+                    this.bottomSheet.title.text = ""
+                    this.bottomSheet.explanation.text = ""
+                    this.videoUrl.visibility = View.GONE
                 }
             }
             is AppState.Error -> {
-                binding.imageView.load(R.drawable.ic_no_photo_vector)
-                binding.let {
-                    it.bottomSheet.title.text = "Error"
-                    it.bottomSheet.explanation.text = appState.error.message
-                    it.videoUrl.visibility = View.GONE
+                with(binding) {
+                    this.imageView.load(R.drawable.ic_no_photo_vector)
+                    this.bottomSheet.title.text = "Error"
+                    this.bottomSheet.explanation.text = appState.error.message
+                    this.videoUrl.visibility = View.GONE
                 }
             }
         }
 
+    }
+
+    private fun startFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.animator.fragment_fade_in, R.animator.fragment_fade_out)
+            .replace(R.id.container, fragment)
+            .addToBackStack("")
+            .commit()
     }
 
     override fun onDestroy() {
