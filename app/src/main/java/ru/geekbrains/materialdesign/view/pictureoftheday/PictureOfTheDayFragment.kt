@@ -1,14 +1,18 @@
 package ru.geekbrains.materialdesign.view.pictureoftheday
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.UiThread
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -37,6 +41,8 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding: FragmentPictureOfTheDayBinding get() { return _binding!! }
 
     private var flag = false
+
+    private var spannableStringBuilder = SpannableStringBuilder()
 
     private val viewModel:PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -223,7 +229,15 @@ class PictureOfTheDayFragment : Fragment() {
                         )
 
                         this.bottomSheet.title.text = spannableString
-                        this.bottomSheet.explanation.text = appState.serverResponseData.explanation
+
+                        spannableStringBuilder = SpannableStringBuilder(appState.serverResponseData.explanation)
+                        this.bottomSheet.explanation.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
+                        spannableStringBuilder = binding.bottomSheet.explanation.text as SpannableStringBuilder
+
+                        spannableStringBuilder.replace(0, 5, "!@#$%")
+
+                        rainbow()
+
                     }
                 }
             }
@@ -254,6 +268,53 @@ class PictureOfTheDayFragment : Fragment() {
             .replace(R.id.container, fragment)
             .addToBackStack("")
             .commit()
+    }
+
+    fun rainbow(i : Int = 1) {
+        var currentCount = i
+        val x = object : CountDownTimer(20000, 400) {
+            override fun onTick(p0: Long) {
+                colorText(currentCount)
+                currentCount = if (++currentCount > 5) 1 else currentCount++
+            }
+
+            override fun onFinish() {
+                rainbow(currentCount)
+            }
+
+        }
+        x.start()
+    }
+
+    private fun colorText(colorFirstNumber : Int) {
+        val map = mapOf(
+            0 to Color.GREEN,
+            1 to Color.MAGENTA,
+            2 to Color.BLUE,
+            3 to Color.CYAN,
+            4 to Color.RED,
+            5 to Color.YELLOW,
+            6 to Color.GRAY,
+        )
+
+        val spans = spannableStringBuilder.getSpans(
+            0, spannableStringBuilder.length,
+            ForegroundColorSpan::class.java
+        )
+
+        for (span in spans) {
+            spannableStringBuilder.removeSpan(span)
+        }
+
+        var colorNumber = colorFirstNumber
+        for (i in spannableStringBuilder.indices) {
+            if (colorNumber == 5) colorNumber = 0 else colorNumber += 1
+            spannableStringBuilder.setSpan(
+                ForegroundColorSpan(map.getValue(colorNumber))
+                , i, i+1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+
     }
 
     override fun onDestroy() {
